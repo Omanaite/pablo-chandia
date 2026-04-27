@@ -112,21 +112,21 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       {/* ── Card body ── */}
       <div className="p-6 sm:p-8">
         {/* Header row */}
-        <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
-          <div>
-            <span className="inline-block px-2.5 py-1 text-xs font-mono rounded-md bg-muted text-muted-foreground mb-3">
+        <div className="mb-6">
+          <div className="flex items-center gap-3 mb-3">
+            <span className="inline-block px-2.5 py-1 text-xs font-mono rounded-md bg-muted text-muted-foreground">
               {project.type}
             </span>
-            <h3 className="text-xl sm:text-2xl font-bold font-display leading-tight">
-              {project.title}
-            </h3>
-            <p className="text-muted-foreground mt-1.5 text-sm sm:text-base">
-              {project.tagline}
-            </p>
+            <time className="text-xs font-mono text-muted-foreground">
+              {project.date}
+            </time>
           </div>
-          <time className="text-xs font-mono text-muted-foreground shrink-0 pt-1">
-            {project.date}
-          </time>
+          <h3 className="text-xl sm:text-2xl font-bold font-display leading-tight">
+            {project.title}
+          </h3>
+          <p className="text-muted-foreground mt-1.5 text-sm sm:text-base">
+            {project.tagline}
+          </p>
         </div>
 
         {/* Outcome callout — the most important information, shown first */}
