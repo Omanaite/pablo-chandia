@@ -2,7 +2,7 @@
 
 export const personal = {
   name: "Pablo Chandía",
-  title: "Frontend Developer",
+  title: "Junior Frontend Developer",
   location: "Leipzig, Germany",
   email: "chandiapablo@outlook.com",
   github: "https://github.com/Omanaite",
@@ -45,7 +45,7 @@ export const projects: Project[] = [
     type: "SaaS Platform",
     date: "March 2026 — Present",
     problem:
-      "Tattoo artists need complete digital infrastructure — portfolio galleries, payment processing, and client management — but can't afford custom development or the complexity of stitching together 5 different third-party services.",
+      "Artists need complete digital infrastructure — portfolio galleries, payment processing, and client management — but can't afford custom development or the complexity of stitching together 5 different third-party services.",
     solution:
       "Built a multi-tenant SaaS where each artist gets their own CMS, dual payment gateway (Stripe + PayPal), gallery management system, and custom subdomain — all from a single codebase with strict data isolation via Supabase Row Level Security policies.",
     outcome:
@@ -96,6 +96,31 @@ export const projects: Project[] = [
       figmaUrl:
         "https://www.figma.com/design/mq0mc8Y4KdJFgr3Z0BlPhJ/Consensus-App--Copy-?node-id=290-14705",
     },
+  },
+    {
+    id: "tcg-chile",
+    title: "Trading Card Game Chile",
+    tagline: "Trading Card Marketplace",
+    type: "Marketplace Platform",
+    date: "March 2023",
+    problem:
+      "Card games players need a Trade Market to sell and buy cards, second handed or new ones.",
+    solution:
+      "Built a Marketplace Platform where users can create their own store, upload their cards and manage their inventory. Also, they can buy cards from other users and manage their orders.",
+    outcome:
+      "Platform that handles real payments processing. And own stock and order management.",
+    tech: [
+      "C#",
+      ".NET Framework",
+      ".NET Core",
+      "Entity Framework",
+      "PostgreSQL",
+      "JavaScript",
+      "SCSS",
+      "Bootstrap",
+    ],
+    liveUrl: "https://tcgchile.cl",
+    featured: true,
   },
 ];
 
