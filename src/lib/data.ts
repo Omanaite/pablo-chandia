@@ -165,6 +165,7 @@ export const education: EducationEntry[] = [
     institution: "Brainnest",
     period: "Jun — Jul 2022",
     description: "24-hour industry training in frontend development fundamentals.",
+    certificates: ["/certificates/brainnest-certificate.pdf"],
   },
   {
     degree: "Introducción a la programación en JavaScript",
