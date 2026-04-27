@@ -77,7 +77,7 @@ export const projects: Project[] = [
     outcome:
       "Shipped a fully functional collaborative app to production on time. Demonstrated ability to work in a team, adapt to feedback fast, and deliver under real deadlines.",
     tech: ["TypeScript", "React", "Tailwind CSS", "Figma Design", "Prisma ORM", "PostgreSQL"],
-    liveUrl: "https://camp9-final-project-sooty.vercel.app",
+    liveUrl: "https://camp9-final-project-three.vercel.app",
     repoUrl: "https://github.com/Omanaite/camp9-final-project",
     featured: false,
     design: {
