@@ -137,6 +137,33 @@ export const techStack: Record<string, string[]> = {
   "Tools & Deploy": ["Vercel", "Git", "GitHub", "ESLint", "Resend"],
 };
 
+export const education = [
+  {
+    degree: "Ingeniero en Informática",
+    institution: "Universidad Tecnológica de Chile INACAP",
+    period: "2008 — 2014",
+    description: "Computer Engineering with specialization in IT Project Management.",
+  },
+  {
+    degree: "Junior Web Development Bootcamp",
+    institution: "Devhaus Leipzig",
+    period: "2023",
+    description: "Intensive full-stack program — 660 hours. Built D'accord in a 4-person Agile team, shipped to production in 3 weeks.",
+  },
+  {
+    degree: "Frontend Development Industry Training",
+    institution: "Brainnest",
+    period: "Jun — Jul 2022",
+    description: "24-hour industry training in frontend development fundamentals.",
+  },
+  {
+    degree: "Introducción a la programación en JavaScript",
+    institution: "Domestika",
+    period: "Aug 2023",
+    description: "Online course on JavaScript programming by Javier Usobiaga.",
+  },
+];
+
 export const experience = [
   {
     role: "Building Agitprop Studio",
@@ -151,13 +178,6 @@ export const experience = [
     period: "Jul 2023 — Dec 2024",
     description:
       "Deepened expertise in Spec-Driven Development and AI-assisted engineering workflows while on parental leave.",
-  },
-  {
-    role: "Junior Web Development Bootcamp",
-    company: "Devhaus Leipzig",
-    period: "2023",
-    description:
-      "Intensive full-stack program. Built D'accord in a 4-person Agile team, shipped to production in 3 weeks.",
   },
   {
     role: "Frontend Developer",

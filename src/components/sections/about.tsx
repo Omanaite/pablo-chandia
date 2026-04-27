@@ -2,7 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { techStack, experience } from "@/lib/data";
+import { techStack, experience, education } from "@/lib/data";
 
 const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -85,18 +85,44 @@ export function About() {
               <ol className="space-y-0">
                 {experience.map((item, i) => (
                   <li key={i} className="flex gap-4">
-                    {/* Vertical timeline line + dot */}
                     <div className="flex flex-col items-center shrink-0">
                       <div className="w-2 h-2 rounded-full bg-accent mt-1.5" />
                       {i < experience.length - 1 && (
                         <div className="w-px flex-1 bg-border mt-1 mb-0" />
                       )}
                     </div>
-
                     <div className="pb-6">
                       <p className="font-semibold text-sm leading-tight">{item.role}</p>
                       <p className="text-xs text-muted-foreground mt-0.5 mb-2">
                         {item.company} · {item.period}
+                      </p>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {item.description}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
+
+            {/* Education timeline */}
+            <div className="pt-2 border-t border-border mt-2">
+              <h3 className="text-xs font-mono text-muted-foreground uppercase tracking-widest mb-6 pt-6">
+                Education
+              </h3>
+              <ol className="space-y-0">
+                {education.map((item, i) => (
+                  <li key={i} className="flex gap-4">
+                    <div className="flex flex-col items-center shrink-0">
+                      <div className="w-2 h-2 rounded-full bg-muted-foreground/40 mt-1.5" />
+                      {i < education.length - 1 && (
+                        <div className="w-px flex-1 bg-border mt-1 mb-0" />
+                      )}
+                    </div>
+                    <div className="pb-6">
+                      <p className="font-semibold text-sm leading-tight">{item.degree}</p>
+                      <p className="text-xs text-muted-foreground mt-0.5 mb-2">
+                        {item.institution} · {item.period}
                       </p>
                       <p className="text-sm text-muted-foreground leading-relaxed">
                         {item.description}
