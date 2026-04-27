@@ -104,11 +104,11 @@ export const projects: Project[] = [
     type: "Marketplace Platform",
     date: "March 2023",
     problem:
-      "Card games players need a Trade Market to sell and buy cards, second handed or new ones.",
+      "Trading card enthusiasts need a reliable hub to trade cards, both new and used.",
     solution:
-      "Built a Marketplace Platform where users can create their own store, upload their cards and manage their inventory. Also, they can buy cards from other users and manage their orders.",
+      "Developed a full-featured marketplace enabling users to launch their own stores, manage inventory, and list cards for sale. The platform also supports peer-to-peer purchasing and comprehensive order management.",
     outcome:
-      "Platform that handles real payments processing. And own stock and order management.",
+      "Delivered a full-cycle marketplace with secure payment processing, inventory tracking, and order management.",
     tech: [
       "C#",
       ".NET Framework",
