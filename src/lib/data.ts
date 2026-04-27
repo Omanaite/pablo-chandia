@@ -2,7 +2,7 @@
 
 export const personal = {
   name: "Pablo Chandía",
-  title: "Junior Frontend Developer",
+  title: "Frontend Developer",
   location: "Leipzig, Germany",
   email: "chandiapablo@outlook.com",
   github: "https://github.com/Omanaite",
