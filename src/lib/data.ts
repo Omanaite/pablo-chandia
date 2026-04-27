@@ -167,17 +167,31 @@ export const experience = [
       "Sole frontend developer. Built entire web and mobile frontend infrastructure from scratch to production.",
   },
   {
-    role: "Second-Level Support Engineer → Junior Software Developer",
-    company: "ICONSTRUYE — Chile",
-    period: "Oct 2015 — Jan 2017",
+    role: "Second-Level Support Engineer",
+    company: "ICONSTRUYE — Santiago",
+    period: "Jan 2018 — Sep 2019",
     description:
-      "Bug fixes in production web apps using SQL, ASP.NET, C# and Visual Basic. Created and executed stored database procedures for preventive error resolution. Managed SLA compliance and operational continuity.",
+      "Production support for Electronic Tax Document and Marketplace integrations using SQL and C#.",
+  },
+  {
+    role: "Second-Level Support Engineer",
+    company: "ICONSTRUYE — Chile",
+    period: "Feb 2016 — Jan 2017",
+    description:
+      "Bug fixes and stored procedures in production web apps using SQL, ASP.NET and C#. SLA compliance.",
+  },
+  {
+    role: "Junior Software Developer",
+    company: "ICONSTRUYE — Chile",
+    period: "Oct 2015 — Jan 2016",
+    description:
+      "Code maintenance and bug fixes for production apps. Reports and documentation using ASP.NET and SQL.",
   },
   {
     role: "Project Assistant",
     company: "Zed — Santiago",
     period: "Jan 2015 — Oct 2015",
     description:
-      "Analysed projects to solve potential problems and recommend optimal approaches. Managed incidents in customer applications and coordinated requests across departments in other countries to improve customer service.",
+      "Analysed projects, managed customer incidents and coordinated cross-country department requests.",
   },
 ];
