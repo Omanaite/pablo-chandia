@@ -19,9 +19,20 @@ const heroTech = [
   "React 19",
   "Next.js 16",
   "TypeScript",
-  "Tailwind v4",
+  "JavaScript",
+  "Tailwind",
+  "Bootstrap",
+  "Figma Design",
+  "UX/UI",
+  "SEO",
   "Framer Motion",
   "Supabase",
+  "Prisma",
+  "PostgreSQL",
+  "SQL",
+  "Vercel",
+  "Git",
+  "Spec-Driven Dev",
 ];
 
 export function Hero() {

@@ -41,7 +41,7 @@ export const projects: Project[] = [
   {
     id: "agitprop-studio",
     title: "Agitprop Studio",
-    tagline: "Multi-tenant SaaS & CMS platform for tattoo artists",
+    tagline: "Multi-tenant SaaS & CMS platform for artists",
     type: "SaaS Platform",
     date: "March 2026 — Present",
     problem:
@@ -49,7 +49,7 @@ export const projects: Project[] = [
     solution:
       "Built a multi-tenant SaaS where each artist gets their own CMS, dual payment gateway (Stripe + PayPal), gallery management system, and custom subdomain — all from a single codebase with strict data isolation via Supabase Row Level Security policies.",
     outcome:
-      "Production-ready platform handling real payments with full webhook processing for Stripe and PayPal events. Built with an AI-assisted Spec-Driven Development workflow and zero data leaks between tenants.",
+      "Production-ready platform, currently working in testing payments with full webhook processing for Stripe and PayPal events. Built with an AI-assisted Spec-Driven Development workflow and zero data leaks between tenants.",
     tech: [
       "Next.js 16",
       "React 19",
@@ -76,7 +76,7 @@ export const projects: Project[] = [
       "Built with a 4-person cross-functional Agile team at Devhaus Leipzig — daily standups, Scrum ceremonies, and a tight 3-week sprint cycle with continuous feedback loops.",
     outcome:
       "Shipped a fully functional collaborative app to production on time. Demonstrated ability to work in a team, adapt to feedback fast, and deliver under real deadlines.",
-    tech: ["TypeScript", "React"],
+    tech: ["TypeScript", "React", "Tailwind CSS", "Figma Design", "Prisma ORM", "PostgreSQL"],
     liveUrl: "https://camp9-final-project-sooty.vercel.app",
     repoUrl: "https://github.com/Omanaite/camp9-final-project",
     featured: false,
@@ -125,7 +125,7 @@ export const projects: Project[] = [
 ];
 
 export const techStack: Record<string, string[]> = {
-  Frontend: ["React 19", "Next.js 16", "TypeScript", "Tailwind CSS v4", "Framer Motion"],
+  Frontend: ["React 19", "Next.js 16", "TypeScript", "JavaScript", "Tailwind CSS v4", "Bootstrap", "Figma(UI Design - Wireframes & Mockups)", "Framer Motion"],
   "Backend & Data": [
     "Node.js",
     "Next.js API Routes",
@@ -143,7 +143,7 @@ export const experience = [
     company: "Side Project → Production SaaS",
     period: "Mar 2026 — Present",
     description:
-      "Multi-tenant SaaS platform for tattoo artists — from concept to production with real users and payments.",
+      "Multi-tenant SaaS platform for artists — from concept to production with real users and payments.",
   },
   {
     role: "Parental Leave & Specialization",
