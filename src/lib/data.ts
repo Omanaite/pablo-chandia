@@ -10,6 +10,17 @@ export const personal = {
   available: true,
 };
 
+// Design process tabs for projects that have Figma documentation
+export interface DesignTab {
+  label: string;
+  embedUrl: string;
+}
+
+export interface DesignProcess {
+  tabs: DesignTab[];
+  figmaUrl: string;
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -23,6 +34,7 @@ export interface Project {
   liveUrl?: string;
   repoUrl?: string;
   featured: boolean;
+  design?: DesignProcess; // optional — only projects with Figma docs
 }
 
 export const projects: Project[] = [
@@ -68,6 +80,22 @@ export const projects: Project[] = [
     liveUrl: "https://camp9-final-project-sooty.vercel.app",
     repoUrl: "https://github.com/Omanaite/camp9-final-project",
     featured: false,
+    design: {
+      tabs: [
+        {
+          label: "Wireframe",
+          embedUrl:
+            "https://embed.figma.com/proto/mq0mc8Y4KdJFgr3Z0BlPhJ/Consensus-App--Copy-?node-id=226-1389&p=f&scaling=scale-down&content-scaling=fixed&page-id=126%3A2&embed-host=share",
+        },
+        {
+          label: "Mockup",
+          embedUrl:
+            "https://embed.figma.com/proto/mq0mc8Y4KdJFgr3Z0BlPhJ/Consensus-App--Copy-?node-id=611-4742&p=f&scaling=scale-down&content-scaling=fixed&page-id=290%3A14705&embed-host=share",
+        },
+      ],
+      figmaUrl:
+        "https://www.figma.com/design/mq0mc8Y4KdJFgr3Z0BlPhJ/Consensus-App--Copy-?node-id=290-14705",
+    },
   },
 ];
 

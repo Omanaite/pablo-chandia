@@ -4,6 +4,19 @@ import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 import { ExternalLink, ChevronDown } from "lucide-react";
 
+// Figma brand icon — inline SVG (not in lucide-react v1)
+function FigmaIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H12v7H8.5A3.5 3.5 0 0 1 5 5.5z" />
+      <path d="M12 2h3.5a3.5 3.5 0 1 1 0 7H12V2z" />
+      <path d="M12 12.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
+      <path d="M5 12.5A3.5 3.5 0 0 1 8.5 9H12v7H8.5A3.5 3.5 0 0 1 5 12.5z" />
+      <path d="M5 19.5A3.5 3.5 0 0 1 8.5 16H12v3.5a3.5 3.5 0 1 1-7 0z" />
+    </svg>
+  );
+}
+
 // GitHub brand icon — not in lucide-react v1, using inline SVG
 function GithubIcon({ className }: { className?: string }) {
   return (
@@ -17,9 +30,74 @@ import type { Project } from "@/lib/data";
 
 const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
+// Figma design process section — tabbed wireframe + mockup prototypes
+function DesignProcess({ design }: { design: NonNullable<Project["design"]> }) {
+  const [activeTab, setActiveTab] = useState(0);
+  const [iframeLoaded, setIframeLoaded] = useState(false);
+
+  return (
+    <div className="pt-6 pb-2">
+      {/* Tab switcher */}
+      <div className="flex items-center gap-2 mb-4">
+        {design.tabs.map((tab, i) => (
+          <button
+            key={tab.label}
+            onClick={() => { setActiveTab(i); setIframeLoaded(false); }}
+            className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-colors ${
+              activeTab === i
+                ? "bg-accent text-accent-foreground"
+                : "bg-muted text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Responsive Figma prototype embed — maintains 16:9 ratio */}
+      <div className="relative w-full rounded-xl overflow-hidden border border-border bg-muted"
+           style={{ paddingBottom: "56.25%" }}>
+        {/* Loading skeleton shown until iframe fires onLoad */}
+        {!iframeLoaded && (
+          <div className="absolute inset-0 flex items-center justify-center gap-2 text-muted-foreground text-sm">
+            <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+              <circle cx="12" cy="12" r="10" strokeOpacity={0.25} />
+              <path d="M12 2a10 10 0 0 1 10 10" />
+            </svg>
+            Loading prototype…
+          </div>
+        )}
+        <iframe
+          key={design.tabs[activeTab].embedUrl}
+          src={design.tabs[activeTab].embedUrl}
+          className="absolute inset-0 w-full h-full"
+          allowFullScreen
+          onLoad={() => setIframeLoaded(true)}
+          title={`${design.tabs[activeTab].label} prototype`}
+        />
+      </div>
+
+      {/* Link to full Figma file */}
+      <div className="mt-4 flex items-center justify-end">
+        <a
+          href={design.figmaUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
+        >
+          <FigmaIcon className="w-3.5 h-3.5" />
+          Open full Figma file
+          <ExternalLink className="w-3 h-3" />
+        </a>
+      </div>
+    </div>
+  );
+}
+
 // Individual project card with expandable case study
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const [expanded, setExpanded] = useState(false);
+  const [designExpanded, setDesignExpanded] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-60px" });
 
@@ -96,7 +174,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             </a>
           )}
 
-          {/* Case study toggle — slides open with the full problem/solution context */}
+          {/* Case study toggle */}
           <button
             onClick={() => setExpanded((v) => !v)}
             className="inline-flex items-center gap-1.5 px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors ml-auto"
@@ -109,6 +187,27 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               }`}
             />
           </button>
+
+          {/* Design process toggle — only shown for projects with Figma docs */}
+          {project.design && (
+            <button
+              onClick={() => setDesignExpanded((v) => !v)}
+              className={`inline-flex items-center gap-1.5 px-3 py-2 text-sm transition-colors ${
+                designExpanded
+                  ? "text-accent"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+              aria-expanded={designExpanded}
+            >
+              <FigmaIcon className="w-3.5 h-3.5" />
+              Design process
+              <ChevronDown
+                className={`w-4 h-4 transition-transform duration-300 ${
+                  designExpanded ? "rotate-180" : ""
+                }`}
+              />
+            </button>
+          )}
         </div>
       </div>
 
@@ -142,6 +241,30 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                   </p>
                 </div>
               </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ── Expandable design process (Figma prototypes) ── */}
+      <AnimatePresence initial={false}>
+        {designExpanded && project.design && (
+          <motion.div
+            key="design-process"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.4, ease }}
+            className="overflow-hidden"
+          >
+            <div className="px-6 sm:px-8 pb-8 border-t border-border">
+              <div className="flex items-center gap-2 pt-5 mb-1">
+                <FigmaIcon className="w-4 h-4 text-muted-foreground" />
+                <h4 className="text-xs font-mono text-muted-foreground uppercase tracking-widest">
+                  Design Process
+                </h4>
+              </div>
+              <DesignProcess design={project.design} />
             </div>
           </motion.div>
         )}
