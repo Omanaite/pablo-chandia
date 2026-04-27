@@ -1,8 +1,9 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
-import { techStack, experience, education } from "@/lib/data";
+import { useRef, useState } from "react";
+import { techStack, experience, education, type EducationEntry } from "@/lib/data";
+import { CertificateModal } from "@/components/ui/certificate-modal";
 
 const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -14,6 +15,8 @@ export function About() {
   const isHeaderInView = useInView(headerRef, { once: true, margin: "-80px" });
   const isNarrativeInView = useInView(narrativeRef, { once: true, margin: "-60px" });
   const isStackInView = useInView(stackRef, { once: true, margin: "-60px" });
+
+  const [activeEntry, setActiveEntry] = useState<EducationEntry | null>(null);
 
   return (
     <section id="about" className="py-28 px-6">
@@ -34,7 +37,7 @@ export function About() {
           </h2>
         </motion.div>
 
-        {/* Two-column layout: narrative + stack */}
+        {/* Two-column layout */}
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
           {/* ── Left: narrative + experience timeline ── */}
           <motion.div
@@ -104,37 +107,9 @@ export function About() {
                 ))}
               </ol>
             </div>
-
-            {/* Education timeline */}
-            <div className="pt-2 border-t border-border mt-2">
-              <h3 className="text-xs font-mono text-muted-foreground uppercase tracking-widest mb-6 pt-6">
-                Education
-              </h3>
-              <ol className="space-y-0">
-                {education.map((item, i) => (
-                  <li key={i} className="flex gap-4">
-                    <div className="flex flex-col items-center shrink-0">
-                      <div className="w-2 h-2 rounded-full bg-muted-foreground/40 mt-1.5" />
-                      {i < education.length - 1 && (
-                        <div className="w-px flex-1 bg-border mt-1 mb-0" />
-                      )}
-                    </div>
-                    <div className="pb-6">
-                      <p className="font-semibold text-sm leading-tight">{item.degree}</p>
-                      <p className="text-xs text-muted-foreground mt-0.5 mb-2">
-                        {item.institution} · {item.period}
-                      </p>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        {item.description}
-                      </p>
-                    </div>
-                  </li>
-                ))}
-              </ol>
-            </div>
           </motion.div>
 
-          {/* ── Right: tech stack organized by category ── */}
+          {/* ── Right: tech stack + languages + education ── */}
           <motion.div
             ref={stackRef}
             initial={{ opacity: 0, y: 24 }}
@@ -167,7 +142,7 @@ export function About() {
               ))}
             </div>
 
-            {/* Languages spoken — relevant for German job market */}
+            {/* Languages */}
             <div className="mt-8 pt-7 border-t border-border">
               <h3 className="text-xs font-mono text-muted-foreground uppercase tracking-widest mb-4">
                 Languages
@@ -185,9 +160,56 @@ export function About() {
                 ))}
               </div>
             </div>
+
+            {/* Education */}
+            <div className="mt-8 pt-7 border-t border-border">
+              <h3 className="text-xs font-mono text-muted-foreground uppercase tracking-widest mb-6">
+                Education
+              </h3>
+              <ol className="space-y-0">
+                {education.map((item, i) => (
+                  <li key={i} className="flex gap-4">
+                    <div className="flex flex-col items-center shrink-0">
+                      <div className="w-2 h-2 rounded-full bg-accent mt-1.5" />
+                      {i < education.length - 1 && (
+                        <div className="w-px flex-1 bg-border mt-1 mb-0" />
+                      )}
+                    </div>
+                    <div className="pb-6 flex-1">
+                      <div className="flex items-start justify-between gap-2">
+                        <p className="font-semibold text-sm leading-tight">{item.degree}</p>
+                        {item.certificates && item.certificates.length > 0 && (
+                          <button
+                            onClick={() => setActiveEntry(item)}
+                            className="shrink-0 text-xs font-mono text-muted-foreground border border-border rounded px-2 py-0.5 hover:text-foreground hover:border-accent/50 transition-colors"
+                          >
+                            View
+                          </button>
+                        )}
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-0.5 mb-2">
+                        {item.institution} · {item.period}
+                      </p>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {item.description}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
           </motion.div>
         </div>
       </div>
+
+      {/* Certificate modal */}
+      {activeEntry?.certificates && (
+        <CertificateModal
+          certificates={activeEntry.certificates}
+          title={`${activeEntry.degree} — ${activeEntry.institution}`}
+          onClose={() => setActiveEntry(null)}
+        />
+      )}
     </section>
   );
 }

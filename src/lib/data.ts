@@ -137,18 +137,28 @@ export const techStack: Record<string, string[]> = {
   "Tools & Deploy": ["Vercel", "Git", "GitHub", "ESLint", "Resend"],
 };
 
-export const education = [
+export interface EducationEntry {
+  degree: string;
+  institution: string;
+  period: string;
+  description: string;
+  certificates?: string[]; // paths relative to /public
+}
+
+export const education: EducationEntry[] = [
   {
     degree: "Ingeniero en Informática",
     institution: "Universidad Tecnológica de Chile INACAP",
     period: "2008 — 2014",
     description: "Computer Engineering with specialization in IT Project Management.",
+    certificates: ["/certificates/inacap-diploma.jpg"],
   },
   {
     degree: "Junior Web Development Bootcamp",
     institution: "Devhaus Leipzig",
     period: "2023",
     description: "Intensive full-stack program — 660 hours. Built D'accord in a 4-person Agile team, shipped to production in 3 weeks.",
+    certificates: ["/certificates/devhaus-certificate.jpg", "/certificates/devhaus-curriculum.jpg"],
   },
   {
     degree: "Frontend Development Industry Training",
@@ -161,6 +171,7 @@ export const education = [
     institution: "Domestika",
     period: "Aug 2023",
     description: "Online course on JavaScript programming by Javier Usobiaga.",
+    certificates: ["/certificates/domestika-certificate.pdf"],
   },
 ];
 
