@@ -100,7 +100,7 @@ export function Hero() {
           <span className="text-foreground font-medium">5+ years</span> of production
           experience in{" "}
           <span className="text-foreground font-medium">
-            React, Next.js & TypeScript
+            "Development Environment"
           </span>
           . Currently building SaaS products from{" "}
           <span className="text-foreground font-medium">Leipzig, Germany</span>.

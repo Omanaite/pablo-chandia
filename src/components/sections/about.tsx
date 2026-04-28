@@ -45,7 +45,7 @@ export function About() {
             className="space-y-5"
           >
             <p className="text-muted-foreground leading-relaxed">
-              I&apos;m Pablo, a frontend developer from Santiago, Chile, now based in
+              I&apos;m Pablo, a frontend developer from Chile, now based in
               Leipzig, Germany. With over{" "}
               <span className="text-foreground font-medium">
                 5 years of production experience
@@ -72,7 +72,7 @@ export function About() {
               >
                 Agitprop Studio
               </a>
-              , a multi-tenant SaaS for tattoo artists, and looking for a{" "}
+              , a multi-tenant SaaS for artists, and looking for a{" "}
               <span className="text-foreground font-medium">frontend role</span>{" "}
               in Leipzig or remote across Europe.
             </p>
