@@ -137,12 +137,21 @@ export const techStack: Record<string, string[]> = {
   "Tools & Deploy": ["Vercel", "Git", "GitHub", "ESLint", "Resend"],
 };
 
+export interface CertificateTranslation {
+  degree: string;
+  description: string;
+}
+
 export interface EducationEntry {
   degree: string;
   institution: string;
   period: string;
   description: string;
   certificates?: string[]; // paths relative to /public
+  translations?: {
+    en: CertificateTranslation;
+    de: CertificateTranslation;
+  };
 }
 
 export const education: EducationEntry[] = [
@@ -152,6 +161,16 @@ export const education: EducationEntry[] = [
     period: "2008 — 2014",
     description: "Computer Engineering with specialization in IT Project Management.",
     certificates: ["/certificates/inacap-diploma.jpg"],
+    translations: {
+      en: {
+        degree: "Computer Engineer",
+        description: "4-year university degree in Computer Engineering with specialization in IT Project Management, awarded by Universidad Tecnológica de Chile INACAP.",
+      },
+      de: {
+        degree: "Informatikingenieur",
+        description: "4-jähriger Universitätsabschluss in Informatik-Ingenieurwesen mit Spezialisierung in IT-Projektmanagement, verliehen von der Universidad Tecnológica de Chile INACAP.",
+      },
+    },
   },
   {
     degree: "Junior Web Development Bootcamp",
@@ -159,6 +178,16 @@ export const education: EducationEntry[] = [
     period: "2023",
     description: "Intensive full-stack program — 660 hours. Built D'accord in a 4-person Agile team, shipped to production in 3 weeks.",
     certificates: ["/certificates/devhaus-certificate.jpg", "/certificates/devhaus-curriculum.jpg"],
+    translations: {
+      en: {
+        degree: "Junior Web Development Bootcamp",
+        description: "Intensive full-stack web development program — 660 hours of hands-on training. Built D'accord collaboratively in a 4-person Agile team and shipped to production within 3 weeks.",
+      },
+      de: {
+        degree: "Junior Web-Entwicklung Bootcamp",
+        description: "Intensives Vollstack-Webentwicklungsprogramm — 660 Stunden praxisnahes Training. Entwicklung der App D'accord in einem 4-köpfigen Agile-Team, innerhalb von 3 Wochen in Produktion gebracht.",
+      },
+    },
   },
   {
     degree: "Frontend Development Industry Training",
@@ -166,6 +195,16 @@ export const education: EducationEntry[] = [
     period: "Jun — Jul 2022",
     description: "24-hour industry training in frontend development fundamentals.",
     certificates: ["/certificates/brainnest-certificate.pdf"],
+    translations: {
+      en: {
+        degree: "Frontend Development Industry Training",
+        description: "24-hour industry training program covering frontend development fundamentals, including HTML, CSS, and JavaScript.",
+      },
+      de: {
+        degree: "Frontend-Entwicklung Branchentraining",
+        description: "24-stündiges Branchentrainingsprogramm zu Frontend-Entwicklungsgrundlagen, einschließlich HTML, CSS und JavaScript.",
+      },
+    },
   },
   {
     degree: "Introducción a la programación en JavaScript",
@@ -173,6 +212,16 @@ export const education: EducationEntry[] = [
     period: "Aug 2023",
     description: "Online course on JavaScript programming by Javier Usobiaga.",
     certificates: ["/certificates/domestika-certificate.pdf"],
+    translations: {
+      en: {
+        degree: "Introduction to JavaScript Programming",
+        description: "Online course on JavaScript programming fundamentals taught by Javier Usobiaga on the Domestika platform.",
+      },
+      de: {
+        degree: "Einführung in die JavaScript-Programmierung",
+        description: "Online-Kurs zu den Grundlagen der JavaScript-Programmierung von Javier Usobiaga auf der Domestika-Plattform.",
+      },
+    },
   },
 ];
 

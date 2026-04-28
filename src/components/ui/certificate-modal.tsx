@@ -2,22 +2,34 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import type { CertificateTranslation } from "@/lib/data";
 
 interface CertificateModalProps {
   certificates: string[];
   title: string;
   onClose: () => void;
+  translations?: {
+    en: CertificateTranslation;
+    de: CertificateTranslation;
+  };
 }
 
-export function CertificateModal({ certificates, title, onClose }: CertificateModalProps) {
+export function CertificateModal({ certificates, title, onClose, translations }: CertificateModalProps) {
   const [page, setPage] = useState(0);
+  const [showTranslation, setShowTranslation] = useState(false);
+  const [lang, setLang] = useState<"en" | "de">("en");
   const isPdf = certificates[page]?.endsWith(".pdf");
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-      if (e.key === "ArrowRight") setPage((p) => Math.min(p + 1, certificates.length - 1));
-      if (e.key === "ArrowLeft") setPage((p) => Math.max(p - 1, 0));
+      if (e.key === "Escape") {
+        if (showTranslation) setShowTranslation(false);
+        else onClose();
+      }
+      if (!showTranslation) {
+        if (e.key === "ArrowRight") setPage((p) => Math.min(p + 1, certificates.length - 1));
+        if (e.key === "ArrowLeft") setPage((p) => Math.max(p - 1, 0));
+      }
     };
     document.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
@@ -25,7 +37,9 @@ export function CertificateModal({ certificates, title, onClose }: CertificateMo
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
     };
-  }, [onClose, certificates.length]);
+  }, [onClose, certificates.length, showTranslation]);
+
+  const translation = translations?.[lang];
 
   return (
     <AnimatePresence>
@@ -55,11 +69,25 @@ export function CertificateModal({ certificates, title, onClose }: CertificateMo
         >
           {/* Header */}
           <div className="flex items-center justify-between mb-3">
-            <div>
-              <p className="text-xs font-mono text-muted-foreground uppercase tracking-widest">
-                Certificate
-              </p>
-              <p className="text-sm font-semibold mt-0.5">{title}</p>
+            <div className="flex items-center gap-3">
+              <div>
+                <p className="text-xs font-mono text-muted-foreground uppercase tracking-widest">
+                  Certificate
+                </p>
+                <p className="text-sm font-semibold mt-0.5">{title}</p>
+              </div>
+              {translations && (
+                <button
+                  onClick={() => setShowTranslation((v) => !v)}
+                  className={`shrink-0 text-xs font-mono border rounded px-2 py-0.5 transition-colors ${
+                    showTranslation
+                      ? "text-foreground border-accent/60 bg-accent/10"
+                      : "text-muted-foreground border-border hover:text-foreground hover:border-accent/40"
+                  }`}
+                >
+                  Translation
+                </button>
+              )}
             </div>
             <div className="flex items-center gap-3">
               {certificates.length > 1 && (
@@ -93,7 +121,7 @@ export function CertificateModal({ certificates, title, onClose }: CertificateMo
           </div>
 
           {/* Certificate display */}
-          <div className="rounded-xl overflow-hidden border border-border bg-muted">
+          <div className="relative rounded-xl overflow-hidden border border-border bg-muted">
             <AnimatePresence mode="wait">
               <motion.div
                 key={page}
@@ -117,6 +145,60 @@ export function CertificateModal({ certificates, title, onClose }: CertificateMo
                   />
                 )}
               </motion.div>
+            </AnimatePresence>
+
+            {/* Translation overlay */}
+            <AnimatePresence>
+              {showTranslation && translation && (
+                <motion.div
+                  className="absolute inset-0 bg-background/92 backdrop-blur-sm flex flex-col p-5 sm:p-7"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {/* Language selector */}
+                  <div className="flex justify-end mb-5">
+                    <div className="flex items-center gap-1 border border-border rounded-md p-0.5">
+                      {(["en", "de"] as const).map((l) => (
+                        <button
+                          key={l}
+                          onClick={() => setLang(l)}
+                          className={`text-xs font-mono uppercase px-2.5 py-1 rounded transition-colors ${
+                            lang === l
+                              ? "bg-accent/20 text-foreground"
+                              : "text-muted-foreground hover:text-foreground"
+                          }`}
+                        >
+                          {l}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Translation content */}
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={lang}
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -6 }}
+                      transition={{ duration: 0.18 }}
+                      className="flex flex-col gap-3"
+                    >
+                      <p className="text-xs font-mono text-muted-foreground uppercase tracking-widest">
+                        {lang === "en" ? "English" : "Deutsch"}
+                      </p>
+                      <p className="text-xl sm:text-2xl font-semibold leading-snug">
+                        {translation.degree}
+                      </p>
+                      <p className="text-sm text-muted-foreground leading-relaxed max-w-lg">
+                        {translation.description}
+                      </p>
+                    </motion.div>
+                  </AnimatePresence>
+                </motion.div>
+              )}
             </AnimatePresence>
           </div>
 
