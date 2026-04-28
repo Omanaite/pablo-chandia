@@ -11,15 +11,17 @@ interface CertificateModalProps {
   translations?: {
     en: CertificateTranslation;
     de: CertificateTranslation;
+    es?: CertificateTranslation;
   };
 }
+
+type Lang = "en" | "de" | "es";
 
 export function CertificateModal({ certificates, title, onClose, translations }: CertificateModalProps) {
   const [page, setPage] = useState(0);
   const [showTranslation, setShowTranslation] = useState(false);
-  const [lang, setLang] = useState<"en" | "de">("en");
-  const isPdf = certificates[page]?.endsWith(".pdf");
-
+  const [lang, setLang] = useState<Lang>("en");
+   
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -130,20 +132,17 @@ export function CertificateModal({ certificates, title, onClose, translations }:
                 exit={{ opacity: 0, x: -12 }}
                 transition={{ duration: 0.2 }}
               >
-                {isPdf ? (
-                  <iframe
-                    src={certificates[page]}
-                    className="w-full h-[70vh]"
-                    title={title}
-                  />
-                ) : (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={certificates[page]}
-                    alt={title}
-                    className="w-full object-contain max-h-[70vh]"
-                  />
-                )}
+                <iframe
+                  src={certificates[page]}
+                  className="w-full h-[70vh]"
+                  title={title}
+                />
+                {/*// eslint-disable-next-line @next/next/no-img-element*/}
+                <img
+                  src={certificates[page]}
+                  alt={title}
+                  className="w-full object-contain max-h-[70vh]"
+                />
               </motion.div>
             </AnimatePresence>
 
@@ -160,7 +159,7 @@ export function CertificateModal({ certificates, title, onClose, translations }:
                   {/* Language selector */}
                   <div className="flex justify-end mb-5">
                     <div className="flex items-center gap-1 border border-border rounded-md p-0.5">
-                      {(["en", "de"] as const).map((l) => (
+                      {(["en", "de", ...(translations?.es ? ["es"] : [])] as Lang[]).map((l) => (
                         <button
                           key={l}
                           onClick={() => setLang(l)}
@@ -187,7 +186,7 @@ export function CertificateModal({ certificates, title, onClose, translations }:
                       className="flex flex-col gap-3"
                     >
                       <p className="text-xs font-mono text-muted-foreground uppercase tracking-widest">
-                        {lang === "en" ? "English" : "Deutsch"}
+                        {lang === "en" ? "English" : lang === "de" ? "Deutsch" : "Español"}
                       </p>
                       <p className="text-xl sm:text-2xl font-semibold leading-snug">
                         {translation.degree}

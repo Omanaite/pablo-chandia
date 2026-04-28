@@ -125,13 +125,14 @@ export const projects: Project[] = [
 ];
 
 export const techStack: Record<string, string[]> = {
-  Frontend: ["React 19", "Next.js 16", "TypeScript", "JavaScript", "Tailwind CSS v4", "Bootstrap", "Figma(UI Design - Wireframes & Mockups)", "Framer Motion"],
+  Frontend: ["React", "Next.js", "TypeScript", "JavaScript", "Tailwind", "Bootstrap", "Figma(UI Design - Wireframes & Mockups)", "Framer Motion"],
   "Backend & Data": [
     "Node.js",
     "Next.js API Routes",
     "Supabase (PostgreSQL)",
     "Prisma ORM",
     "MongoDB",
+    "SQL",
   ],
   Payments: ["Stripe", "PayPal Server SDK", "Webhook Processing"],
   "Tools & Deploy": ["Vercel", "Git", "GitHub", "ESLint", "Resend"],
@@ -198,7 +199,7 @@ export const education: EducationEntry[] = [
       },
     },
   },
-    {
+  {
     degree: "Desarrollo con IA: de 0 a producción",
     institution: "BIG School",
     period: "March 2026",
