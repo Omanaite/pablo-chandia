@@ -203,7 +203,7 @@ export const education: EducationEntry[] = [
     degree: "Desarrollo con IA: de 0 a producción",
     institution: "BIG School",
     period: "March 2026",
-    description: "Introducción a el desarrollo con IA, desde la concepción de la idea hasta el despliegue en producción, con un enfoque practico y orientado a resultados.",
+    description: "Introduction to AI development, from the conception of the idea to deployment in production, with a practical and results-oriented focus.",
     certificates: ["/certificates/Certificado-PCHC-BIGschool.jpg"],
     translations: {
       en: {
