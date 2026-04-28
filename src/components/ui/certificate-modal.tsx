@@ -132,12 +132,7 @@ export function CertificateModal({ certificates, title, onClose, translations }:
                 exit={{ opacity: 0, x: -12 }}
                 transition={{ duration: 0.2 }}
               >
-                <iframe
-                  src={certificates[page]}
-                  className="w-full h-[70vh]"
-                  title={title}
-                />
-                {/*// eslint-disable-next-line @next/next/no-img-element*/}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={certificates[page]}
                   alt={title}
