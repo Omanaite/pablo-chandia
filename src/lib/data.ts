@@ -151,6 +151,7 @@ export interface EducationEntry {
   translations?: {
     en: CertificateTranslation;
     de: CertificateTranslation;
+    es: CertificateTranslation;
   };
 }
 
@@ -164,11 +165,15 @@ export const education: EducationEntry[] = [
     translations: {
       en: {
         degree: "Computer Engineer",
-        description: "4-year university degree in Computer Engineering with specialization in IT Project Management, awarded by Universidad Tecnológica de Chile INACAP.",
+        description: "Whereas Pablo Horacio Chandía Cornejo has fulfilled the requirements set by Universidad Tecnológica de Chile INACAP, the degree of Computer Engineer is hereby awarded. Granted in Santiago, July 11, 2014. Signed by: Secretary General · Rector",
       },
       de: {
         degree: "Informatikingenieur",
-        description: "4-jähriger Universitätsabschluss in Informatik-Ingenieurwesen mit Spezialisierung in IT-Projektmanagement, verliehen von der Universidad Tecnológica de Chile INACAP.",
+        description: "Da Pablo Horacio Chandía Cornejo die Anforderungen der Universidad Tecnológica de Chile INACAP erfüllt hat, wird ihm der akademische Titel Informatikingenieur verliehen. Ausgestellt in Santiago, 11. Juli 2014. Unterzeichnet von: Generalsekretär · Rektor",
+      },
+      es: {
+        degree: "Ingeniero en Informática",
+        description: "Pablo Horacio Chandía Cornejo ha cumplido con los requisitos establecidos por la Universidad Tecnológica de Chile INACAP, por lo que se le otorga el título de Ingeniero en Informática. Otorgado en Santiago, 11 de julio de 2014. Firmado por: Secretario General · Rector",
       },
     },
   },
@@ -187,6 +192,31 @@ export const education: EducationEntry[] = [
         degree: "Junior Web-Entwicklung Bootcamp",
         description: "Intensives Vollstack-Webentwicklungsprogramm — 660 Stunden praxisnahes Training. Entwicklung der App D'accord in einem 4-köpfigen Agile-Team, innerhalb von 3 Wochen in Produktion gebracht.",
       },
+      es: {
+        degree: "Bootcamp de Desarrollo Web Junior",
+        description: "Programa intensivo de desarrollo web full-stack — 660 horas de entrenamiento práctico. Construcción de D'accord en colaboración con un equipo Agile de 4 personas, lanzado a producción en 3 semanas.",
+      },
+    },
+  },
+    {
+    degree: "Desarrollo con IA: de 0 a producción",
+    institution: "BIG School",
+    period: "March 2026",
+    description: "Introducción a el desarrollo con IA, desde la concepción de la idea hasta el despliegue en producción, con un enfoque practico y orientado a resultados.",
+    certificates: ["/certificates/Certificado-PCHC-BIGschool.jpg"],
+    translations: {
+      en: {
+        degree: "Introduction to AI Development: From Idea to Production",
+        description: "Online course on AI development fundamentals, from ideation to production deployment, with a practical and results-oriented approach, taught by BIG School.",
+      },
+      de: {
+        degree: "Einführung in die KI-Entwicklung: Von der Idee bis zur Produktion",
+        description: "Online-Kurs zu den Grundlagen der KI-Entwicklung, von der Ideenfindung bis zum Produktions-Deployment, mit einem praktischen und ergebnisorientierten Ansatz, unterrichtet von BIG School.",
+      },
+      es: {
+        degree: "Introducción ala Desarrollo con IA: de 0 a Producción",
+        description: "Introducción a la Desarrollo con IA, desde la concepción de la idea hasta el despliegue en producción, con un enfoque práctico y orientado a resultados.",
+      },
     },
   },
   {
@@ -194,7 +224,7 @@ export const education: EducationEntry[] = [
     institution: "Brainnest",
     period: "Jun — Jul 2022",
     description: "24-hour industry training in frontend development fundamentals.",
-    certificates: ["/certificates/brainnest-certificate.pdf"],
+    certificates: ["/certificates/brainnest-certificate.jpg"],
     translations: {
       en: {
         degree: "Frontend Development Industry Training",
@@ -204,6 +234,10 @@ export const education: EducationEntry[] = [
         degree: "Frontend-Entwicklung Branchentraining",
         description: "24-stündiges Branchentrainingsprogramm zu Frontend-Entwicklungsgrundlagen, einschließlich HTML, CSS und JavaScript.",
       },
+      es: {
+        degree: "Entrenamiento Industrial de Desarrollo Frontend",
+        description: "Programa de capacitación industrial de 24 horas que cubre las bases del desarrollo frontend, incluyendo HTML, CSS y JavaScript.",
+      },
     },
   },
   {
@@ -211,7 +245,7 @@ export const education: EducationEntry[] = [
     institution: "Domestika",
     period: "Aug 2023",
     description: "Online course on JavaScript programming by Javier Usobiaga.",
-    certificates: ["/certificates/domestika-certificate.pdf"],
+    certificates: ["/certificates/domestika-certificate.jpg"],
     translations: {
       en: {
         degree: "Introduction to JavaScript Programming",
@@ -220,6 +254,10 @@ export const education: EducationEntry[] = [
       de: {
         degree: "Einführung in die JavaScript-Programmierung",
         description: "Online-Kurs zu den Grundlagen der JavaScript-Programmierung von Javier Usobiaga auf der Domestika-Plattform.",
+      },
+      es: {
+        degree: "Introducción a la programación en JavaScript",
+        description: "Curso online sobre fundamentos de programación en JavaScript dictado por Javier Usobiaga en la plataforma Domestika.",
       },
     },
   },
