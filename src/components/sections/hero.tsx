@@ -102,7 +102,7 @@ export function Hero() {
           <span className="text-foreground font-medium">
             "Development Environment"
           </span>
-          . Currently building SaaS products from{" "}
+          . Currently building a SaaS Open-Source product from{" "}
           <span className="text-foreground font-medium">Leipzig, Germany</span>.
         </motion.p>
 
