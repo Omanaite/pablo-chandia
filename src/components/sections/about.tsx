@@ -208,6 +208,7 @@ export function About() {
           certificates={activeEntry.certificates}
           title={`${activeEntry.degree} — ${activeEntry.institution}`}
           onClose={() => setActiveEntry(null)}
+          translations={activeEntry.translations}
         />
       )}
     </section>
