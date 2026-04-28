@@ -137,6 +137,45 @@ export const techStack: Record<string, string[]> = {
   "Tools & Deploy": ["Vercel", "Git", "GitHub", "ESLint", "Resend"],
 };
 
+export interface EducationEntry {
+  degree: string;
+  institution: string;
+  period: string;
+  description: string;
+  certificates?: string[]; // paths relative to /public
+}
+
+export const education: EducationEntry[] = [
+  {
+    degree: "Ingeniero en Informática",
+    institution: "Universidad Tecnológica de Chile INACAP",
+    period: "2008 — 2014",
+    description: "Computer Engineering with specialization in IT Project Management.",
+    certificates: ["/certificates/inacap-diploma.jpg"],
+  },
+  {
+    degree: "Junior Web Development Bootcamp",
+    institution: "Devhaus Leipzig",
+    period: "2023",
+    description: "Intensive full-stack program — 660 hours. Built D'accord in a 4-person Agile team, shipped to production in 3 weeks.",
+    certificates: ["/certificates/devhaus-certificate.jpg", "/certificates/devhaus-curriculum.jpg"],
+  },
+  {
+    degree: "Frontend Development Industry Training",
+    institution: "Brainnest",
+    period: "Jun — Jul 2022",
+    description: "24-hour industry training in frontend development fundamentals.",
+    certificates: ["/certificates/brainnest-certificate.pdf"],
+  },
+  {
+    degree: "Introducción a la programación en JavaScript",
+    institution: "Domestika",
+    period: "Aug 2023",
+    description: "Online course on JavaScript programming by Javier Usobiaga.",
+    certificates: ["/certificates/domestika-certificate.pdf"],
+  },
+];
+
 export const experience = [
   {
     role: "Building Agitprop Studio",
@@ -153,17 +192,38 @@ export const experience = [
       "Deepened expertise in Spec-Driven Development and AI-assisted engineering workflows while on parental leave.",
   },
   {
-    role: "Junior Web Development Bootcamp",
-    company: "Devhaus Leipzig",
-    period: "2023",
-    description:
-      "Intensive full-stack program. Built D'accord in a 4-person Agile team, shipped to production in 3 weeks.",
-  },
-  {
     role: "Frontend Developer",
     company: "TCG Chile — Santiago",
     period: "Aug 2021 — Jul 2023",
     description:
       "Sole frontend developer. Built entire web and mobile frontend infrastructure from scratch to production.",
+  },
+  {
+    role: "Second-Level Support Engineer",
+    company: "ICONSTRUYE — Santiago",
+    period: "Jan 2018 — Sep 2019",
+    description:
+      "Production support for Electronic Tax Document and Marketplace integrations using SQL and C#.",
+  },
+  {
+    role: "Second-Level Support Engineer",
+    company: "ICONSTRUYE — Chile",
+    period: "Feb 2016 — Jan 2017",
+    description:
+      "Bug fixes and stored procedures in production web apps using SQL, ASP.NET and C#. SLA compliance.",
+  },
+  {
+    role: "Junior Software Developer",
+    company: "ICONSTRUYE — Chile",
+    period: "Oct 2015 — Jan 2016",
+    description:
+      "Code maintenance and bug fixes for production apps. Reports and documentation using ASP.NET and SQL.",
+  },
+  {
+    role: "Project Assistant",
+    company: "Zed — Santiago",
+    period: "Jan 2015 — Oct 2015",
+    description:
+      "Analysed projects, managed customer incidents and coordinated cross-country department requests.",
   },
 ];
