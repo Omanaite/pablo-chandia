@@ -21,6 +21,14 @@ export interface DesignProcess {
   figmaUrl: string;
 }
 
+export interface ProjectTranslation {
+  tagline: string;
+  type: string;
+  problem: string;
+  solution: string;
+  outcome: string;
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -35,6 +43,10 @@ export interface Project {
   repoUrl?: string;
   featured: boolean;
   design?: DesignProcess; // optional — only projects with Figma docs
+  translations?: {
+    es: ProjectTranslation;
+    de: ProjectTranslation;
+  };
 }
 
 export const projects: Project[] = [
@@ -63,6 +75,28 @@ export const projects: Project[] = [
     liveUrl: "https://agitpropstudio.vercel.app",
     repoUrl: "https://github.com/Omanaite/Agitprop",
     featured: true,
+    translations: {
+      es: {
+        tagline: "Plataforma SaaS multi-tenant y CMS para artistas",
+        type: "Plataforma SaaS",
+        problem:
+          "Los artistas necesitan infraestructura digital completa — galerías, procesamiento de pagos y gestión de clientes — pero no pueden permitirse el desarrollo personalizado ni combinar 5 servicios de terceros.",
+        solution:
+          "Construí un SaaS multi-tenant donde cada artista obtiene su propio CMS, pasarela de pago dual (Stripe + PayPal), sistema de galería y subdominio personalizado — todo desde una única base de código con aislamiento de datos mediante Row Level Security de Supabase.",
+        outcome:
+          "Plataforma lista para producción con procesamiento completo de webhooks para Stripe y PayPal. Construida con un flujo Spec-Driven Development asistido por IA y cero fugas de datos entre inquilinos.",
+      },
+      de: {
+        tagline: "Multi-Tenant SaaS- & CMS-Plattform für Künstler",
+        type: "SaaS-Plattform",
+        problem:
+          "Künstler benötigen vollständige digitale Infrastruktur — Portfolio-Galerien, Zahlungsabwicklung und Kundenverwaltung — können sich aber keine individuelle Entwicklung oder die Komplexität von 5 Drittanbieterdiensten leisten.",
+        solution:
+          "Ich entwickelte ein Multi-Tenant SaaS, bei dem jeder Künstler sein eigenes CMS, eine duale Zahlungs-Gateway (Stripe + PayPal), Galerie-Verwaltung und Subdomain erhält — aus einer einzigen Codebasis mit strikter Datenisolierung via Supabase RLS.",
+        outcome:
+          "Produktionsreife Plattform mit vollständiger Webhook-Verarbeitung für Stripe und PayPal. Entwickelt mit KI-unterstütztem Spec-Driven Development-Workflow und null Datenlecks zwischen Mandanten.",
+      },
+    },
   },
   {
     id: "daccord",
@@ -80,6 +114,28 @@ export const projects: Project[] = [
     liveUrl: "https://camp9-final-project-three.vercel.app",
     repoUrl: "https://github.com/Omanaite/camp9-final-project",
     featured: false,
+    translations: {
+      es: {
+        tagline: "Aplicación web colaborativa en tiempo real",
+        type: "Proyecto de equipo",
+        problem:
+          "Los equipos pequeños en sprints de ritmo acelerado necesitaban una herramienta colaborativa liviana para coordinar decisiones sin la sobrecarga del software empresarial.",
+        solution:
+          "Construido con un equipo interfuncional de 4 personas en Devhaus Leipzig — standups diarios, ceremonias Scrum y un sprint de 3 semanas con bucles de retroalimentación continua.",
+        outcome:
+          "Entregamos una app colaborativa completamente funcional en producción a tiempo. Demostré capacidad para trabajar en equipo y entregar bajo plazos reales.",
+      },
+      de: {
+        tagline: "Kollaborative Echtzeit-Webanwendung",
+        type: "Teamprojekt",
+        problem:
+          "Kleine Teams in schnellen Sprints benötigten ein leichtgewichtiges Kollaborationstool ohne den Overhead von Enterprise-Software.",
+        solution:
+          "Entwickelt mit einem 4-Personen-Agile-Team bei Devhaus Leipzig — tägliche Standups, Scrum-Zeremonien und ein straffer 3-Wochen-Sprint mit kontinuierlichen Feedback-Schleifen.",
+        outcome:
+          "Lieferte eine vollständig funktionale kollaborative App rechtzeitig in die Produktion. Demonstrierte Teamarbeit und Lieferfähigkeit unter echten Deadlines.",
+      },
+    },
     design: {
       tabs: [
         {
@@ -121,6 +177,28 @@ export const projects: Project[] = [
     ],
     liveUrl: "https://tcgchile.cl",
     featured: true,
+    translations: {
+      es: {
+        tagline: "Marketplace de Cartas Coleccionables",
+        type: "Plataforma Marketplace",
+        problem:
+          "Los entusiastas de las cartas coleccionables necesitan un hub confiable para intercambiar cartas, tanto nuevas como usadas.",
+        solution:
+          "Desarrollé un marketplace completo que permite abrir tiendas propias, gestionar inventario y publicar cartas en venta, con soporte de compras peer-to-peer y gestión de pedidos.",
+        outcome:
+          "Entregué un marketplace de ciclo completo con procesamiento de pagos seguro, seguimiento de inventario y gestión de pedidos.",
+      },
+      de: {
+        tagline: "Sammelkarten-Marktplatz",
+        type: "Marktplatz-Plattform",
+        problem:
+          "Sammelkarten-Enthusiasten benötigen eine zuverlässige Plattform zum Handeln von Karten, sowohl neu als auch gebraucht.",
+        solution:
+          "Entwickelte einen vollständigen Marktplatz zum Eröffnen eigener Shops, Inventarverwaltung und Kartenangeboten, mit Peer-to-Peer-Käufen und umfassendem Bestellmanagement.",
+        outcome:
+          "Lieferte einen Full-Cycle-Marktplatz mit sicherer Zahlungsabwicklung, Inventarverfolgung und Bestellverwaltung.",
+      },
+    },
   },
 ];
 
@@ -264,13 +342,36 @@ export const education: EducationEntry[] = [
   },
 ];
 
-export const experience = [
+export interface ExperienceEntry {
+  role: string;
+  company: string;
+  period: string;
+  description: string;
+  translations?: {
+    es: { role: string; description: string };
+    de: { role: string; description: string };
+  };
+}
+
+export const experience: ExperienceEntry[] = [
   {
     role: "Building Agitprop Studio",
     company: "Side Project → Production SaaS",
     period: "Mar 2026 — Present",
     description:
       "Multi-tenant SaaS platform for artists — from concept to production with real users and payments.",
+    translations: {
+      es: {
+        role: "Construyendo Agitprop Studio",
+        description:
+          "Plataforma SaaS multi-tenant para artistas — desde el concepto hasta producción con usuarios reales y pagos.",
+      },
+      de: {
+        role: "Aufbau von Agitprop Studio",
+        description:
+          "Multi-Tenant SaaS-Plattform für Künstler — vom Konzept bis zur Produktion mit echten Nutzern und Zahlungen.",
+      },
+    },
   },
   {
     role: "Parental Leave & Specialization",
@@ -278,6 +379,18 @@ export const experience = [
     period: "Jul 2023 — Dec 2024",
     description:
       "Deepened expertise in Spec-Driven Development and AI-assisted engineering workflows while on parental leave.",
+    translations: {
+      es: {
+        role: "Licencia Parental y Especialización",
+        description:
+          "Profundicé experiencia en Spec-Driven Development y flujos de trabajo de ingeniería asistidos por IA durante la licencia parental.",
+      },
+      de: {
+        role: "Elternzeit & Spezialisierung",
+        description:
+          "Vertiefte Expertise in Spec-Driven Development und KI-unterstützten Engineering-Workflows während der Elternzeit.",
+      },
+    },
   },
   {
     role: "Frontend Developer",
@@ -285,6 +398,18 @@ export const experience = [
     period: "Aug 2021 — Jul 2023",
     description:
       "Sole frontend developer. Built entire web and mobile frontend infrastructure from scratch to production.",
+    translations: {
+      es: {
+        role: "Desarrollador Frontend",
+        description:
+          "Único desarrollador frontend. Construí toda la infraestructura web y móvil desde cero hasta producción.",
+      },
+      de: {
+        role: "Frontend-Entwickler",
+        description:
+          "Alleiniger Frontend-Entwickler. Aufbau der gesamten Web- und Mobile-Frontend-Infrastruktur von Grund auf bis zur Produktion.",
+      },
+    },
   },
   {
     role: "Second-Level Support Engineer",
@@ -292,6 +417,18 @@ export const experience = [
     period: "Jan 2018 — Sep 2019",
     description:
       "Production support for Electronic Tax Document and Marketplace integrations using SQL and C#.",
+    translations: {
+      es: {
+        role: "Ingeniero de Soporte de Segundo Nivel",
+        description:
+          "Soporte en producción para integraciones de Documentos Tributarios Electrónicos y Marketplace usando SQL y C#.",
+      },
+      de: {
+        role: "Second-Level Support Engineer",
+        description:
+          "Produktionssupport für Integrationen von elektronischen Steuerdokumenten und Marktplatz mit SQL und C#.",
+      },
+    },
   },
   {
     role: "Second-Level Support Engineer",
@@ -299,6 +436,18 @@ export const experience = [
     period: "Feb 2016 — Jan 2017",
     description:
       "Bug fixes and stored procedures in production web apps using SQL, ASP.NET and C#. SLA compliance.",
+    translations: {
+      es: {
+        role: "Ingeniero de Soporte de Segundo Nivel",
+        description:
+          "Corrección de errores y procedimientos almacenados en apps web de producción con SQL, ASP.NET y C#. Cumplimiento de SLA.",
+      },
+      de: {
+        role: "Second-Level Support Engineer",
+        description:
+          "Fehlerbehebung und gespeicherte Prozeduren in Produktions-Webanwendungen mit SQL, ASP.NET und C#. SLA-Einhaltung.",
+      },
+    },
   },
   {
     role: "Junior Software Developer",
@@ -306,6 +455,18 @@ export const experience = [
     period: "Oct 2015 — Jan 2016",
     description:
       "Code maintenance and bug fixes for production apps. Reports and documentation using ASP.NET and SQL.",
+    translations: {
+      es: {
+        role: "Desarrollador de Software Junior",
+        description:
+          "Mantenimiento de código y corrección de errores en apps de producción. Reportes y documentación con ASP.NET y SQL.",
+      },
+      de: {
+        role: "Junior Software-Entwickler",
+        description:
+          "Code-Wartung und Fehlerbehebung für Produktionsanwendungen. Berichte und Dokumentation mit ASP.NET und SQL.",
+      },
+    },
   },
   {
     role: "Project Assistant",
@@ -313,5 +474,17 @@ export const experience = [
     period: "Jan 2015 — Oct 2015",
     description:
       "Analysed projects, managed customer incidents and coordinated cross-country department requests.",
+    translations: {
+      es: {
+        role: "Asistente de Proyectos",
+        description:
+          "Análisis de proyectos, gestión de incidentes de clientes y coordinación de solicitudes entre departamentos de distintos países.",
+      },
+      de: {
+        role: "Projektassistent",
+        description:
+          "Projektanalyse, Verwaltung von Kundenincidents und Koordination länderübergreifender Abteilungsanfragen.",
+      },
+    },
   },
 ];

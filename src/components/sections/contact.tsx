@@ -3,8 +3,10 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Mail, ArrowRight } from "lucide-react";
+import { personal } from "@/lib/data";
+import { useLanguage } from "@/providers/language-provider";
+import { translations } from "@/lib/translations";
 
-// Brand icons not available in lucide-react v1 — using inline SVGs
 function GithubIcon({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
@@ -20,13 +22,14 @@ function LinkedInIcon({ className }: { className?: string }) {
     </svg>
   );
 }
-import { personal } from "@/lib/data";
 
 const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 export function Contact() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const { lang } = useLanguage();
+  const t = translations[lang].contact;
 
   return (
     <section id="contact" className="py-28 px-6 border-t border-border">
@@ -39,25 +42,19 @@ export function Contact() {
           className="max-w-2xl"
         >
           <span className="text-xs font-mono text-muted-foreground uppercase tracking-widest">
-            Contact
+            {t.label}
           </span>
 
           <h2 className="text-3xl sm:text-4xl font-bold font-display mt-3 mb-6 leading-tight">
-            Let&apos;s build something
+            {t.headline1}
             <br />
-            <span className="text-accent">together.</span>
+            <span className="text-accent">{t.headline2}</span>
           </h2>
 
           <p className="text-muted-foreground leading-relaxed mb-10 text-sm sm:text-base">
-            I&apos;m currently open to{" "}
-            <span className="text-foreground font-medium">
-              frontend developer positions
-            </span>{" "}
-            in Leipzig and remote opportunities across Europe. If you&apos;re building
-            something interesting and want a developer who ships — let&apos;s talk.
+            {t.description}
           </p>
 
-          {/* Primary CTA — email is the lowest-friction entry point */}
           <motion.a
             href={`mailto:${personal.email}`}
             whileHover={{ x: 4 }}
@@ -69,7 +66,6 @@ export function Contact() {
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1 duration-200" />
           </motion.a>
 
-          {/* Secondary links */}
           <div className="flex flex-wrap items-center gap-3">
             <a
               href={personal.github}

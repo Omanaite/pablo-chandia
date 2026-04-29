@@ -3,8 +3,12 @@
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 import { ExternalLink, ChevronDown } from "lucide-react";
+import { projects } from "@/lib/data";
+import type { Project } from "@/lib/data";
+import { useLanguage } from "@/providers/language-provider";
+import { translations } from "@/lib/translations";
+import type { Lang } from "@/lib/translations";
 
-// Figma brand icon — inline SVG (not in lucide-react v1)
 function FigmaIcon({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
@@ -17,7 +21,6 @@ function FigmaIcon({ className }: { className?: string }) {
   );
 }
 
-// GitHub brand icon — not in lucide-react v1, using inline SVG
 function GithubIcon({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
@@ -25,19 +28,21 @@ function GithubIcon({ className }: { className?: string }) {
     </svg>
   );
 }
-import { projects } from "@/lib/data";
-import type { Project } from "@/lib/data";
 
 const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-// Figma design process section — tabbed wireframe + mockup prototypes
-function DesignProcess({ design }: { design: NonNullable<Project["design"]> }) {
+function DesignProcess({
+  design,
+  tProjects,
+}: {
+  design: NonNullable<Project["design"]>;
+  tProjects: (typeof translations)[Lang]["projects"];
+}) {
   const [activeTab, setActiveTab] = useState(0);
   const [iframeLoaded, setIframeLoaded] = useState(false);
 
   return (
     <div className="pt-6 pb-2">
-      {/* Tab switcher */}
       <div className="flex items-center gap-2 mb-4">
         {design.tabs.map((tab, i) => (
           <button
@@ -54,17 +59,17 @@ function DesignProcess({ design }: { design: NonNullable<Project["design"]> }) {
         ))}
       </div>
 
-      {/* Responsive Figma prototype embed — maintains 16:9 ratio */}
-      <div className="relative w-full rounded-xl overflow-hidden border border-border bg-muted"
-           style={{ paddingBottom: "56.25%" }}>
-        {/* Loading skeleton shown until iframe fires onLoad */}
+      <div
+        className="relative w-full rounded-xl overflow-hidden border border-border bg-muted"
+        style={{ paddingBottom: "56.25%" }}
+      >
         {!iframeLoaded && (
           <div className="absolute inset-0 flex items-center justify-center gap-2 text-muted-foreground text-sm">
             <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
               <circle cx="12" cy="12" r="10" strokeOpacity={0.25} />
               <path d="M12 2a10 10 0 0 1 10 10" />
             </svg>
-            Loading prototype…
+            {tProjects.loadingPrototype}
           </div>
         )}
         <iframe
@@ -77,7 +82,6 @@ function DesignProcess({ design }: { design: NonNullable<Project["design"]> }) {
         />
       </div>
 
-      {/* Link to full Figma file */}
       <div className="mt-4 flex items-center justify-end">
         <a
           href={design.figmaUrl}
@@ -86,7 +90,7 @@ function DesignProcess({ design }: { design: NonNullable<Project["design"]> }) {
           className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
         >
           <FigmaIcon className="w-3.5 h-3.5" />
-          Open full Figma file
+          {tProjects.openFigma}
           <ExternalLink className="w-3 h-3" />
         </a>
       </div>
@@ -94,12 +98,27 @@ function DesignProcess({ design }: { design: NonNullable<Project["design"]> }) {
   );
 }
 
-// Individual project card with expandable case study
-function ProjectCard({ project, index }: { project: Project; index: number }) {
+function ProjectCard({
+  project,
+  index,
+  lang,
+}: {
+  project: Project;
+  index: number;
+  lang: Lang;
+}) {
   const [expanded, setExpanded] = useState(false);
   const [designExpanded, setDesignExpanded] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-60px" });
+  const t = translations[lang].projects;
+
+  const tr = lang !== "en" ? project.translations?.[lang as "es" | "de"] : undefined;
+  const tagline = tr?.tagline ?? project.tagline;
+  const type = tr?.type ?? project.type;
+  const outcome = tr?.outcome ?? project.outcome;
+  const problem = tr?.problem ?? project.problem;
+  const solution = tr?.solution ?? project.solution;
 
   return (
     <motion.article
@@ -109,13 +128,11 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       transition={{ duration: 0.65, ease, delay: index * 0.12 }}
       className="rounded-2xl border border-border bg-card overflow-hidden"
     >
-      {/* ── Card body ── */}
       <div className="p-6 sm:p-8">
-        {/* Header row */}
         <div className="mb-6">
           <div className="flex items-center gap-3 mb-3">
             <span className="inline-block px-2.5 py-1 text-xs font-mono rounded-md bg-muted text-muted-foreground">
-              {project.type}
+              {type}
             </span>
             <time className="text-xs font-mono text-muted-foreground">
               {project.date}
@@ -125,19 +142,17 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             {project.title}
           </h3>
           <p className="text-muted-foreground mt-1.5 text-sm sm:text-base">
-            {project.tagline}
+            {tagline}
           </p>
         </div>
 
-        {/* Outcome callout — the most important information, shown first */}
         <div className="mb-6 p-4 rounded-xl bg-muted/50 border border-border">
           <p className="text-sm leading-relaxed">
-            <span className="text-accent font-semibold">Outcome: </span>
-            {project.outcome}
+            <span className="text-accent font-semibold">{t.outcome} </span>
+            {outcome}
           </p>
         </div>
 
-        {/* Tech stack */}
         <div className="flex flex-wrap gap-1.5 mb-6">
           {project.tech.map((tech) => (
             <span
@@ -149,7 +164,6 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           ))}
         </div>
 
-        {/* Links and case study toggle */}
         <div className="flex flex-wrap items-center gap-3">
           {project.liveUrl && (
             <a
@@ -158,7 +172,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 px-4 py-2 bg-accent text-accent-foreground text-sm font-semibold rounded-full hover:opacity-90 transition-opacity"
             >
-              Live demo
+              {t.liveDemo}
               <ExternalLink className="w-3.5 h-3.5" />
             </a>
           )}
@@ -174,13 +188,12 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             </a>
           )}
 
-          {/* Case study toggle */}
           <button
             onClick={() => setExpanded((v) => !v)}
             className="inline-flex items-center gap-1.5 px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors ml-auto"
             aria-expanded={expanded}
           >
-            Case study
+            {t.caseStudy}
             <ChevronDown
               className={`w-4 h-4 transition-transform duration-300 ${
                 expanded ? "rotate-180" : ""
@@ -188,7 +201,6 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             />
           </button>
 
-          {/* Design process toggle — only shown for projects with Figma docs */}
           {project.design && (
             <button
               onClick={() => setDesignExpanded((v) => !v)}
@@ -200,7 +212,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               aria-expanded={designExpanded}
             >
               <FigmaIcon className="w-3.5 h-3.5" />
-              Design process
+              {t.designProcess}
               <ChevronDown
                 className={`w-4 h-4 transition-transform duration-300 ${
                   designExpanded ? "rotate-180" : ""
@@ -211,7 +223,6 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         </div>
       </div>
 
-      {/* ── Expandable case study ── */}
       <AnimatePresence initial={false}>
         {expanded && (
           <motion.div
@@ -226,18 +237,18 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               <div className="grid sm:grid-cols-2 gap-6">
                 <div>
                   <h4 className="text-xs font-mono text-muted-foreground uppercase tracking-widest mb-3">
-                    The Problem
+                    {t.theProblem}
                   </h4>
                   <p className="text-sm leading-relaxed text-muted-foreground">
-                    {project.problem}
+                    {problem}
                   </p>
                 </div>
                 <div>
                   <h4 className="text-xs font-mono text-muted-foreground uppercase tracking-widest mb-3">
-                    The Solution
+                    {t.theSolution}
                   </h4>
                   <p className="text-sm leading-relaxed text-muted-foreground">
-                    {project.solution}
+                    {solution}
                   </p>
                 </div>
               </div>
@@ -246,7 +257,6 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         )}
       </AnimatePresence>
 
-      {/* ── Expandable design process (Figma prototypes) ── */}
       <AnimatePresence initial={false}>
         {designExpanded && project.design && (
           <motion.div
@@ -261,10 +271,10 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               <div className="flex items-center gap-2 pt-5 mb-1">
                 <FigmaIcon className="w-4 h-4 text-muted-foreground" />
                 <h4 className="text-xs font-mono text-muted-foreground uppercase tracking-widest">
-                  Design Process
+                  {t.designProcess}
                 </h4>
               </div>
-              <DesignProcess design={project.design} />
+              <DesignProcess design={project.design} tProjects={t} />
             </div>
           </motion.div>
         )}
@@ -276,11 +286,12 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 export function Projects() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const { lang } = useLanguage();
+  const t = translations[lang].projects;
 
   return (
     <section id="projects" className="py-28 px-6">
       <div className="max-w-5xl mx-auto">
-        {/* Section header */}
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 20 }}
@@ -289,21 +300,19 @@ export function Projects() {
           className="mb-14"
         >
           <span className="text-xs font-mono text-muted-foreground uppercase tracking-widest">
-            Featured Work
+            {t.label}
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold font-display mt-3">
-            Projects that ship
+            {t.title}
           </h2>
           <p className="text-muted-foreground mt-3 max-w-xl text-sm sm:text-base leading-relaxed">
-            Each project solves a real problem. Expand the case study to understand
-            the thinking behind it — not just the tech used.
+            {t.description}
           </p>
         </motion.div>
 
-        {/* Project cards */}
         <div className="space-y-6">
           {projects.map((project, index) => (
-            <ProjectCard key={project.id} project={project} index={index} />
+            <ProjectCard key={project.id} project={project} index={index} lang={lang} />
           ))}
         </div>
       </div>

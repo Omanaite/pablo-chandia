@@ -2,18 +2,22 @@
 
 import { useEffect, useState } from "react";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { LanguageToggle } from "@/components/ui/language-toggle";
 import { personal } from "@/lib/data";
-
-const navLinks = [
-  { label: "Work", href: "#projects" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
-];
+import { useLanguage } from "@/providers/language-provider";
+import { translations } from "@/lib/translations";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
+  const { lang } = useLanguage();
+  const t = translations[lang];
 
-  // Show backdrop blur once user scrolls past the hero fold
+  const navLinks = [
+    { label: t.nav.work, href: "#projects" },
+    { label: t.nav.about, href: "#about" },
+    { label: t.nav.contact, href: "#contact" },
+  ];
+
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -52,12 +56,13 @@ export function Header() {
 
         {/* Actions */}
         <div className="flex items-center gap-3">
+          <LanguageToggle />
           <ThemeToggle />
           <a
             href="#contact"
             className="hidden sm:inline-flex items-center px-4 py-2 text-sm font-semibold bg-accent text-accent-foreground rounded-full hover:opacity-90 transition-opacity"
           >
-            Hire me
+            {t.nav.hire}
           </a>
         </div>
       </div>
